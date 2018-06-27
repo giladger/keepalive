@@ -16,7 +16,7 @@ def timed_job():
     if not last_connection:
         return
     
-    last_connection = float(last_connection)
+    last_connection = int(last_connection)
     if now - last_connection > 60:
         if r.get('is_connected'):
             r.set('is_connected', False)

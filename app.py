@@ -11,14 +11,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    now = time.time()
+    now = int(time.time())
     previous_connection = r.get('connection_time')
     r.set('connection_time', now)
     if not previous_connection:
         return ""
     
     if not r.get('is_connected'):
-        telegram.send_message(os.environ.get("TELEGRAM_USER_ID"), "Connected after {} seconds".format(now - float(previous_connection)))
+        telegram.send_message(os.environ.get("TELEGRAM_USER_ID"), "Connected after {} seconds".format(now - int(previous_connection)))
         r.set('is_connected', True)
     
     return ""
