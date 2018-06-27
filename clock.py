@@ -19,7 +19,7 @@ def timed_job():
     last_connection = float(last_connection)
     if now - last_connection > 60:
         if r.get('is_connected'):
-            r.set('is_connected', false)
+            r.set('is_connected', False)
             telegram.send_message(os.environ.get("TELEGRAM_USER_ID"), 'No connection')
 
 sched.start()
