@@ -13,7 +13,13 @@ sched = BlockingScheduler()
 def timed_job():
     now = time.time()
     last_connection = r.get('connection_time')
-    if last_connection and (now - last_connection) > 60:
-        telegram.send_message(os.environ.get("TELEGRAM_USER_ID"), 'No connection')
+    if not last_connection:
+        return
+    
+    last_connection = float(last_connection)
+    if now - last_connection > 60:
+        if r.get('is_connected'):
+            r.set('is_connected', false)
+            telegram.send_message(os.environ.get("TELEGRAM_USER_ID"), 'No connection')
 
 sched.start()
