@@ -9,7 +9,7 @@ telegram = Bot(os.environ.get("TELEGRAM_BOT_TOKEN"))
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=3)
+@sched.scheduled_job('interval', minutes=1)
 def timed_job():
     now = time.time()
     last_connection = r.get('connection_time')
@@ -17,9 +17,9 @@ def timed_job():
         return
     
     last_connection = int(last_connection)
-    if now - last_connection > 60:
+    if now - last_connection > 120:
         if r.get('is_connected'):
-            r.set('is_connected', False)
+            r.set('is_connected', '')
             telegram.send_message(os.environ.get("TELEGRAM_USER_ID"), 'No connection')
 
 sched.start()
