@@ -9,7 +9,7 @@ telegram = Bot(os.environ.get("TELEGRAM_BOT_TOKEN"))
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('interval', minutes=3)
 def timed_job():
     now = time.time()
     last_connection = r.get('connection_time')
